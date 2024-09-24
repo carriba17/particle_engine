@@ -1,23 +1,16 @@
-//Carter Arribas September 10th 2024
-//CRCPIII
-//Particle Engine Ball class
-
 package com.particle_engine;
 
 import processing.core.*;
 
 public class ball {
-    PApplet main;//Provides the functionallity for the code
+    PApplet main;
+    float x, y; // Location of the ball
+    float xVel = 1, yVel = 1; // Velocity of the ball
+    float xDirection = 1, yDirection = 1; // Direction of the ball
+    float radius; // Size of the ball
+    int ballColor; // Color of the ball
 
-    ball ball1;
-
-    float x,y; //location of the ball
-    float yVel = 1;
-    float y_direction = 1; //Direction 1 is down, -1 is up
-    float radius; //width of the ball
-    int ballColor;
-
-    ball(float x_, float y_, float radius_, PApplet main_, int c){
+    ball(float x_, float y_, float radius_, PApplet main_, int c) {
         x = x_;
         y = y_;
         radius = radius_;
@@ -25,35 +18,47 @@ public class ball {
         ballColor = c;
     }
 
-    void setup(){
-      
-    }
-
-    public void draw(){
-
+    // Drawing the ball and updating its movement
+    public void draw() {
         main.fill(ballColor);
-        main.ellipse(x,y,radius,radius);
+        main.ellipse(x, y, radius, radius);
         move();
-
     }
 
-    void move(){
-        y += yVel*y_direction;
-        if(y > main.height){
-            y_direction = -1;
+    // Movement with edge detection (bounce)
+    void move() {
+        x += xVel * xDirection;
+        y += yVel * yDirection;
+
+        // Bounce off edges
+        if (x > main.width || x < 0) {
+            xDirection *= -1;
         }
-        if(y < 0){
-            y_direction = 1;
+        if (y > main.height || y < 0) {
+            yDirection *= -1;
         }
-      
-
     }
 
-    void faster(){
-        yVel++;
+    // Increase speed when mouse is pressed
+    void faster() {
+        xVel += 0.5;
+        yVel += 0.5;
     }
 
-    public void mousePressed(){
-        faster();
+    // Change direction when mouse is moved
+    void changeDirection() {
+        xDirection *= -1;
+        yDirection *= -1;
     }
-}//End Ball class
+
+    // Change color when mouse is dragged
+    void changeColor() {
+        ballColor = main.color(main.random(255), main.random(255), main.random(255));
+    }
+
+    // Reset position when 'r' is pressed on the keyboard
+    void resetPosition() {
+        x = main.random(main.width);
+        y = main.random(main.height);
+    }
+}

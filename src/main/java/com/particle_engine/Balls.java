@@ -1,32 +1,64 @@
-package com.particle_engine;
+//Carter Arribas
+//CRCP III
+//Particle Engine Balls class, used to operate the multitude of balls
 
-import java.util.ArrayList;
+//Getting packages and importing useful tools
+package com.particle_engine;
 import processing.core.*;
+import java.util.ArrayList;
+
 
 public class Balls {
-
-
     PApplet main;
-    ArrayList<Balls> balls;
-    ball ball1;//Test case ball
+    ArrayList<ball> balls;
 
-    Balls(PApplet main_){
+    Balls(PApplet main_) {
         main = main_;
-        balls = new ArrayList<Balls>();
-
+        balls = new ArrayList<ball>();
     }
 
-    public void setup(){
+    // Initialize 500+ particles
+    public void setup() {
+        for (int i = 0; i < 500; i++) {
+            balls.add(new ball(main.random(main.width), main.random(main.height), main.random(10, 30), main,
+                    main.color(main.random(255), main.random(255), main.random(255))));
+        }
+    }
+
+    public void draw() {
         main.background(0);
-        ball1 = new ball(main.width/2.0f,main.height*.10f,50.0f, main, main.color(main.random(255),main.random(255),main.random(255)));
+        for (ball b : balls) {
+            b.draw();
+        }
     }
 
-    public void draw(){
-        main.background(0);
-        ball1.draw();
+    // Mouse click interaction - Increase speed
+    public void mousePressed() {
+        for (ball b : balls) {
+            b.faster();
+        }
     }
 
-    public void mousePressed(){
-        ball1.mousePressed();
+    // Mouse moved interaction - change direction
+    public void mouseMoved() {
+        for (ball b : balls) {
+            b.changeDirection();
+        }
+    }
+
+    // Mouse dragged interaction - change color
+    public void mouseDragged() {
+        for (ball b : balls) {
+            b.changeColor();
+        }
+    }
+
+    // Keyboard interaction - reset positions when p is clicked
+    public void keyPressed(char key) {
+        if (key == 'p') {
+            for (ball b : balls) {
+                b.resetPosition();
+            }
+        }
     }
 }

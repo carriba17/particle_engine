@@ -1,14 +1,14 @@
-//Carter Arribas September 10th 2024
-//CRCPIII
-//Particle Engine
+// Carter Arribas September 10th 2024
+// CRCPIII
+// Particle Engine main class
 
-//Importing processing
 package com.particle_engine;
 
 import processing.core.*;
+import java.util.ArrayList;
 
-
-public class Main extends PApplet{
+//Main fuction used to execute everything
+public class Main extends PApplet {
 
     Balls balls;
 
@@ -16,31 +16,37 @@ public class Main extends PApplet{
         PApplet.main("com.particle_engine.Main");
     }
 
-    //Setting sizes of canvas
-    public void settings()
-    {
+    // Setting canvas size
+    public void settings() {
+        size(500, 500);
+    }
 
-        size(500,500);
+    // Initializing particles
+    public void setup() {
         balls = new Balls(this);
-    }
-
-    //Setting size of canvas
-    public void setup()
-    {
         balls.setup();
-        
     }
 
-    //Drawing my canvas 
-    //Decided to draw olympic rings
-    public void draw()
-    {
+    // Drawing the canvas
+    public void draw() {
         balls.draw();
     }
 
-    public void mousePressed(){
+    // Mouse interaction for various behaviors
+    public void mousePressed() {
         balls.mousePressed();
     }
 
-   
+    public void mouseMoved() {
+        balls.mouseMoved();
+    }
+
+    public void mouseDragged() {
+        balls.mouseDragged();
+    }
+
+    // Keyboard interaction
+    public void keyPressed() {
+        balls.keyPressed(key);
+    }
 }
