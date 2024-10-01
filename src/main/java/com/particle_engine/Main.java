@@ -1,6 +1,7 @@
 // Carter Arribas September 10th 2024
 // CRCPIII
 // Particle Engine main class
+//This is the main class used to function everything
 
 package com.particle_engine;
 
@@ -10,43 +11,52 @@ import java.util.ArrayList;
 //Main fuction used to execute everything
 public class Main extends PApplet {
 
-    Balls balls;
+    ArrayList<Particle> particles;
 
     public static void main(String[] args) {
         PApplet.main("com.particle_engine.Main");
     }
 
-    // Setting canvas size
     public void settings() {
-        size(500, 500);
+        size(800, 600);
     }
 
-    // Initializing particles
     public void setup() {
-        balls = new Balls(this);
-        balls.setup();
+        particles = new ArrayList<>();
+        // Adding different types of particles
+        for (int i = 0; i < 7; i++) {
+            //particles.add(new Ball(random(width), random(height), random(10, 30), this, color(random(255), random(255), random(255))));
+            particles.add(new Square(random(width), random(height), random(20, 40), this, color(random(255), random(255), random(255))));
+            particles.add(new Triangle(random(width), random(height), random(30, 50), this, color(random(255), random(255), random(255))));
+        }
     }
-
-    // Drawing the canvas
     public void draw() {
-        balls.draw();
+        background(0);
+        for (Particle p : particles) {
+            p.move();
+            p.draw();
+        }
     }
 
-    // Mouse interaction for various behaviors
     public void mousePressed() {
-        balls.mousePressed();
-    }
-
-    public void mouseMoved() {
-        balls.mouseMoved();
+        for (Particle p : particles) {
+            if (p instanceof Square) {
+                ((Square) p).onClick();
+            }
+        }
     }
 
     public void mouseDragged() {
-        balls.mouseDragged();
+        for (Particle p : particles) {
+            if (p instanceof Triangle) {
+                ((Triangle) p).onDrag();
+            }
+        }
     }
 
-    // Keyboard interaction
     public void keyPressed() {
-        balls.keyPressed(key);
+        for (Particle p : particles) {
+            p.onKeyPress(key);
+        }
     }
 }

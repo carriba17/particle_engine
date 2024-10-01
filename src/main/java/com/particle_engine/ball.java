@@ -2,7 +2,7 @@ package com.particle_engine;
 
 import processing.core.*;
 
-public class ball {
+public class Ball extends Particle {
     PApplet main;
     float x, y; // Location of the ball
     float xVel = 1, yVel = 1; // Velocity of the ball
@@ -10,12 +10,8 @@ public class ball {
     float radius; // Size of the ball
     int ballColor; // Color of the ball
 
-    ball(float x_, float y_, float radius_, PApplet main_, int c) {
-        x = x_;
-        y = y_;
-        radius = radius_;
-        main = main_;
-        ballColor = c;
+    Ball(float x_, float y_, float xVel_, float yVel_, PApplet main_, int c) {
+        super(x_, y_, xVel_, yVel_, main_, c);
     }
 
     // Drawing the ball and updating its movement
@@ -25,19 +21,6 @@ public class ball {
         move();
     }
 
-    // Movement with edge detection (bounce)
-    void move() {
-        x += xVel * xDirection;
-        y += yVel * yDirection;
-
-        // Bounce off edges
-        if (x > main.width || x < 0) {
-            xDirection *= -1;
-        }
-        if (y > main.height || y < 0) {
-            yDirection *= -1;
-        }
-    }
 
     // Increase speed when mouse is pressed
     void faster() {
@@ -60,5 +43,10 @@ public class ball {
     void resetPosition() {
         x = main.random(main.width);
         y = main.random(main.height);
+    }
+
+    @Override
+    float getSize() {
+        return x* y;
     }
 }
