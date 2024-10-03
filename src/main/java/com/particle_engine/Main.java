@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Main extends PApplet {
 
     ArrayList<Particle> particles;
+    boolean started = false;
 
     public static void main(String[] args) {
         PApplet.main("com.particle_engine.Main");
@@ -31,11 +32,21 @@ public class Main extends PApplet {
         }
     }
     public void draw() {
-        background(0);
-        for (Particle p : particles) {
-            p.move();
-            p.draw();
+        if(started == false){
+            background(0);
+            textSize(35);
+            text("Start Screen", 300, 250);
+            textSize(35);
+            text("Start Screen", 300, 250);
         }
+        else{
+            background(0);
+            for (Particle p : particles) {
+                p.move();
+                p.draw();
+            }//End for loop
+        }//End Else
+       
     }
 
     public void mousePressed() {
@@ -55,6 +66,9 @@ public class Main extends PApplet {
     }
 
     public void keyPressed() {
+        if(key == 'n' ){
+            started = true;
+        }
         for (Particle p : particles) {
             p.onKeyPress(key);
         }
