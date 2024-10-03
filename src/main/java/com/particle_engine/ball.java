@@ -5,13 +5,28 @@ import processing.core.*;
 public class Ball extends Particle {
     PApplet main;
     float x, y; // Location of the ball
-    float xVel = 1, yVel = 1; // Velocity of the ball
+    float xVel, yVel; // Velocity of the ball
     float xDirection = 1, yDirection = 1; // Direction of the ball
     float radius; // Size of the ball
     int ballColor; // Color of the ball
 
-    Ball(float x_, float y_, float xVel_, float yVel_, PApplet main_, int c) {
+    Ball(float x_, float y_, float xVel_, float yVel_, float radius_, PApplet main_, int c) {
         super(x_, y_, xVel_, yVel_, main_, c);
+        main = main_; // Assign the passed PApplet instance to the local main
+        x= x_;
+        y = y_;
+        xVel = xVel_;
+        yVel = yVel_;
+        radius = radius_;
+        ballColor = c;
+
+        // this.main = main_; // Assign the passed PApplet instance to the local main
+        // this.x = x_;
+        // this.y = y_;
+        // this.xVel = xVel_;
+        // this.yVel = yVel_;
+        // this.radius = radius_;
+        // this.ballColor = c;
     }
 
     // Drawing the ball and updating its movement
@@ -21,6 +36,11 @@ public class Ball extends Particle {
         move();
     }
 
+    // Method to update ball position based on velocity and direction
+    public void move() {
+        x += xVel * xDirection;
+        y += yVel * yDirection;
+    }
 
     // Increase speed when mouse is pressed
     void faster() {
@@ -47,6 +67,6 @@ public class Ball extends Particle {
 
     @Override
     float getSize() {
-        return x* y;
+        return radius * radius; // Assuming you want the area of the circle
     }
 }

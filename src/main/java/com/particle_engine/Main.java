@@ -25,7 +25,7 @@ public class Main extends PApplet {
         particles = new ArrayList<>();
         // Adding different types of particles
         for (int i = 0; i < 7; i++) {
-            //particles.add(new Ball(random(width), random(height), random(10, 30), this, color(random(255), random(255), random(255))));
+            particles.add(new Ball(random(width), random(height), random(1, 3), random(1,3), random(20, 40), this, color(random(255), random(255), random(255))));
             particles.add(new Square(random(width), random(height), random(20, 40), this, color(random(255), random(255), random(255))));
             particles.add(new Triangle(random(width), random(height), random(30, 50), this, color(random(255), random(255), random(255))));
         }

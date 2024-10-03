@@ -33,14 +33,6 @@ public abstract class Particle {
 
     public abstract void draw(); // Abstract method for drawing
 
-    // Particle Collsion
-    public void checkCollision(Particle other) {
-        // Simple circle collision detection
-        if (PApplet.dist(x, y, other.x, other.y) < (this.getSize() + other.getSize())) {
-            xVel *= -1;
-            yVel *= -1;
-        }
-    }
 
     // Method to return size for collision detection
     abstract float getSize();
