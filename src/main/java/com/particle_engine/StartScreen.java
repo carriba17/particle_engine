@@ -2,16 +2,19 @@ package com.particle_engine;
 
 import processing.core.PApplet;
 
-public class StartScreen extends Main {
-
-    StartScreen(){
-
+public class StartScreen {
+PApplet parent;
+    StartScreen(PApplet parent){
+        this.parent = parent;
     }
 
 
     public void draw(){
-        background(255);
-        text("Start Screen", 255, 500);
+        parent.background(0);
+        parent.textSize(35);
+        parent.text("Start Screen", 300, 250);
+        parent.textSize(25);
+        parent.text("Press n to start Particle Engine", 200, 350);
     }
 
 
